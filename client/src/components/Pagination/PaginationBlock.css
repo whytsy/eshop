@@ -1,0 +1,14 @@
+.page-link {
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--color-zinc-700) !important;
+}
+
+.dark .page-link {
+  color: var(--color-zinc-300) !important;
+}
+
+.page-item.active {
+  background-color: var(--color-zinc-500) !important;
+}
+

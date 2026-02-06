@@ -1,0 +1,35 @@
+.custom-accordion-header .accordion-button {
+  background-color: var(--color-zinc-200);
+  color: var(--color-zinc-500);
+  border-radius: 10px;
+  transition: ease-in-out .3s;
+}
+
+.dark .custom-accordion-header .accordion-button {
+  background-color: var(--color-zinc-500);
+  color: var(--color-zinc-300);
+}
+
+.custom-accordion-header .accordion-button:not(.collapsed) {
+  background-color: var(--color-zinc-200);
+  color: var(--color-zinc-500);
+}
+
+.dark .custom-accordion-header .accordion-button:not(.collapsed) {
+  background-color: var(--color-zinc-500);
+  color: var(--color-zinc-300);
+}
+
+.custom-accordion-header .accordion-button:focus {
+  box-shadow: none;
+  border-color: inherit;
+}
+
+.custom-accordion-header .accordion-button:is(.collapsed) {
+  border-radius: 10px;
+  transition: ease-in-out .3s;
+}
+
+.collapse {
+  visibility: visible !important;
+}

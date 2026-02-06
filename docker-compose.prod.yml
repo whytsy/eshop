@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: eshop-db-prod
+    env_file:
+      - ./server/.env.production
+    environment:
+      POSTGRES_DB: ${DB_NAME:-eshop}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: postgres_secret
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    container_name: eshop-backend-prod
+    env_file:
+      - ./server/.env.production
+    ports:
+      - 5000:5000
+    command: node dist/index.js
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    container_name: eshop-frontend-prod
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data_prod:

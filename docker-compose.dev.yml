@@ -1,0 +1,52 @@
+services:
+  postgres:
+    container_name: eshop-db
+    image: postgres:15-alpine
+    environment:
+      PG_DATA: /var/lib/postgresql/data
+      POSTGRES_DB: ${DB_NAME:-eshop}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASS:-postgres}
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  backend:
+    container_name: eshop-backend
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    ports:
+    - 5000:5000
+    command: npm run dev:with-seed
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    container_name: eshop-frontend
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    ports:
+    - 5173:5173
+    command: npm run dev -- --host 0.0.0.0
+    restart: unless-stopped
+
+volumes:
+  pgdata:
