@@ -7,7 +7,6 @@ jest.mock('../../../logger/logger')
 describe("errorMiddleware", () => {
     let mockReq: any
     let mockRes: any
-    let mockNext: any
 
     beforeEach(() => {
         mockReq = {
@@ -18,13 +17,12 @@ describe("errorMiddleware", () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
         }
-        mockNext = jest.fn()
     })
 
     test("ApiError return error array", () => {
         const apiError = ApiError.badRequest("Bad request")
 
-        errorHandler(apiError, mockReq, mockRes, mockNext)
+        errorHandler(apiError, mockReq, mockRes)
 
         expect(logger.warn).toHaveBeenCalled()
         expect(mockRes.status).toHaveBeenCalledWith(400)
@@ -42,7 +40,7 @@ describe("errorMiddleware", () => {
     test("Error return server error", () => {
         const error = new Error("Server error")
 
-        errorHandler(error, mockReq, mockRes, mockNext)
+        errorHandler(error, mockReq, mockRes)
 
         expect(logger.error).toHaveBeenCalled()
         expect(mockRes.status).toHaveBeenCalledWith(500)
@@ -60,7 +58,7 @@ describe("errorMiddleware", () => {
     test("Not error object", () => {
         const error: unknown = "Something went wrong"
 
-        errorHandler(error as Error, mockReq, mockRes, mockNext)
+        errorHandler(error as Error, mockReq, mockRes)
 
         expect(logger.error).toHaveBeenCalled()
         expect(mockRes.status).toHaveBeenCalledWith(500)
