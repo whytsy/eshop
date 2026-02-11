@@ -1,4 +1,6 @@
-# EShop - интернет-магазин девайсов</h1>
+# EShop - интернет-магазин девайсов  
+Учебный проект, демонстрирующий fullstack-разработку с нуля  
+Реализован полный цикл: регистрация, каталог, корзина, заказы, админ-панель с аналитикой. Отсутствует оплата и подключение платёжной системы.
 
 ![](https://github.com/whytsy/eshop/actions/workflows/ci.yml/badge.svg)  
 ![](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -18,6 +20,8 @@
 - Jest + Supertest
 - Swagger
 
+<img width="430" height="527" alt="image" src="https://github.com/user-attachments/assets/bf17fd60-2da8-44f8-b667-95f2d5081dc9" />
+
 ### Frontend:
 - React + Typescript
 - React router
@@ -25,6 +29,12 @@
 - Axios
 - MobX
 - Tailwind
+
+<img width="430" height="400" alt="localhost_5173_ (5)" src="https://github.com/user-attachments/assets/fe4cbcd0-85c6-4aae-b437-3f1b49c8d203" />
+<img width="430" height="581" alt="localhost_5173_profile (2)" src="https://github.com/user-attachments/assets/c761d0cc-ca38-4666-ad0f-629567966573" />
+<img width="430" height="620" alt="localhost_5173_profile (1)" src="https://github.com/user-attachments/assets/04761251-db4c-402c-92c5-5f1bf212090f" />
+<img width="430" height="680" alt="localhost_5173_profile" src="https://github.com/user-attachments/assets/05345aa6-1e51-4a99-9778-d787db031537" />
+
 
 ### Инфраструктура:
 - Github Actions - CI
@@ -217,3 +227,7 @@ Unit-тесты использовались при работе с middleware �
 - Тестирование (unit + integration)
 - Проверка типов Typescript
 - Сборка проекта для проверки наличия ошибок
+
+### Что не реализовано
+- Интеграция с онлайн оплатой
+- Высокий % покрытия на тестах
